@@ -31,12 +31,12 @@ namespace MouseSwitch
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Config));
             this.label1 = new System.Windows.Forms.Label();
-            this.ModiKeyBox = new System.Windows.Forms.TextBox();
             this.PrevKeyBox = new System.Windows.Forms.TextBox();
             this.NextKeyBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.ModiKeyBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -47,15 +47,6 @@ namespace MouseSwitch
             this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "触发键";
-            // 
-            // ModiKeyBox
-            // 
-            this.ModiKeyBox.Location = new System.Drawing.Point(59, 6);
-            this.ModiKeyBox.Name = "ModiKeyBox";
-            this.ModiKeyBox.ReadOnly = true;
-            this.ModiKeyBox.Size = new System.Drawing.Size(210, 21);
-            this.ModiKeyBox.TabIndex = 1;
-            this.ModiKeyBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ModiKeyBox_KeyDown);
             // 
             // PrevKeyBox
             // 
@@ -102,17 +93,33 @@ namespace MouseSwitch
             this.label4.TabIndex = 6;
             this.label4.Text = "受限于系统，并非所有快捷键都能全局触发，\r\n设置后请自行实验。";
             // 
+            // ModiKeyBox
+            // 
+            this.ModiKeyBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.ModiKeyBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.ModiKeyBox.FormattingEnabled = true;
+            this.ModiKeyBox.Items.AddRange(new object[] {
+            "Ctrl",
+            "Shift",
+            "Alt",
+            "Win"});
+            this.ModiKeyBox.Location = new System.Drawing.Point(59, 6);
+            this.ModiKeyBox.Name = "ModiKeyBox";
+            this.ModiKeyBox.Size = new System.Drawing.Size(210, 20);
+            this.ModiKeyBox.TabIndex = 7;
+            this.ModiKeyBox.SelectedIndexChanged += new System.EventHandler(this.ModiKeyBox_SelectedIndexChanged);
+            // 
             // Config
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(274, 119);
+            this.Controls.Add(this.ModiKeyBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.NextKeyBox);
             this.Controls.Add(this.PrevKeyBox);
-            this.Controls.Add(this.ModiKeyBox);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -129,11 +136,11 @@ namespace MouseSwitch
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox ModiKeyBox;
         private System.Windows.Forms.TextBox PrevKeyBox;
         private System.Windows.Forms.TextBox NextKeyBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox ModiKeyBox;
     }
 }

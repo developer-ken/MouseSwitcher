@@ -38,16 +38,62 @@ namespace MouseSwitch
         {
             InitializeComponent();
             var isfirst = LoadConfig();
-            h.Regist(base.Handle, modifier, previous, GoMinus);
-            h.Regist(base.Handle, modifier, next, GoPlus);
-            var count = MouseGoto();
-            if (isfirst)
-                notifyIcon1.ShowBalloonTip(2000, "屏幕切换程序", "欢迎使用屏幕切换程序！", ToolTipIcon.None);
-            else
-                notifyIcon1.ShowBalloonTip(2000, "屏幕切换程序", "检测到" + count + "个显示器\n" +
-                    "上一个："+GetKeyName(modifier)+"+"+GetKeyName(previous)+"\n"+
-                    "下一个：" + GetKeyName(modifier) + "+" + GetKeyName(next) + "\n"
-                    , ToolTipIcon.None);
+
+            if (RegKeys())
+            {
+                var count = MouseGoto();
+                if (isfirst)
+                {
+                    if (shownotifi)
+                        notifyIcon1.ShowBalloonTip(2000, "屏幕切换程序", "欢迎使用屏幕切换程序！", ToolTipIcon.None);
+                }
+                else
+                {
+                    if (shownotifi)
+                        notifyIcon1.ShowBalloonTip(2000, "屏幕切换程序", "检测到" + count + "个显示器\n" +
+                        "上一个：" + GetKeyName(modifier) + "+" + GetKeyName(previous) + "\n" +
+                        "下一个：" + GetKeyName(modifier) + "+" + GetKeyName(next) + "\n"
+                        , ToolTipIcon.None);
+                }
+            }
+        }
+
+        private bool RegKeys(bool reporterror = false)
+        {
+            try
+            {
+                h.Regist(base.Handle, modifier, previous, GoMinus);
+                h.Regist(base.Handle, modifier, next, GoPlus);
+                return true;
+            }
+            catch (Exception err)
+            {
+                if (reporterror)
+                {
+                    ErrorReport.ReportError(err);
+                }
+                else
+                {
+                    previous = Keys.Left;
+                    next = Keys.Right;
+                    modifier = HotkeyModifiers.Alt;
+                    shownotifi = true;
+                    notifyIcon1.ShowBalloonTip(2000, "屏幕切换程序", "无法使用您自定义的快捷键，已恢复默认设置。\n" +
+                            "上一个：" + GetKeyName(modifier) + "+" + GetKeyName(previous) + "\n" +
+                            "下一个：" + GetKeyName(modifier) + "+" + GetKeyName(next) + "\n"
+                            , ToolTipIcon.None);
+                    RegKeys(true);
+                    SaveConfig();
+                }
+            }
+            return false;
+        }
+
+        private void UnRegKeys()
+        {
+            h.UnRegist(Handle, GoMinus);
+            h.UnRegist(Handle, GoPlus);
+            h.keyid = 10;
         }
 
         private bool LoadConfig()
@@ -74,7 +120,7 @@ namespace MouseSwitch
 
         public void SaveConfig()
         {
-            if (File.Exists("config.json")) 
+            if (File.Exists("config.json"))
                 File.Delete("config.json");
             {
                 var jb = new JObject();
@@ -185,14 +231,30 @@ namespace MouseSwitch
             base.Dispose(disposing);
         }
 
+        private Config configwindow;
+
         private void 设置SToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new Config(this).Show();
+            if (configwindow != null) configwindow.Show();
+            else
+            {
+                UnRegKeys();
+                configwindow = new Config(this);
+                configwindow.ShowDialog();
+                RegKeys();
+                configwindow = null;
+            }
         }
 
         private void 退出QToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+                contextMenuStrip1.Show();
         }
 
         private void InitializeComponent()
@@ -248,6 +310,7 @@ namespace MouseSwitch
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "屏幕切换程序";
             this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseClick);
             // 
             // contextMenuStrip1
             // 

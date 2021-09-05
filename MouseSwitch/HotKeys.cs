@@ -14,7 +14,7 @@ namespace MouseSwitch
             return key switch
             {
                 HotkeyModifiers.Alt => "Alt",
-                HotkeyModifiers.Control => "Control",
+                HotkeyModifiers.Control => "Ctrl",
                 HotkeyModifiers.Shift => "Shift",
                 HotkeyModifiers.Win => "Win",
                 _ => "UNKNOWN_" + ((int)key).ToString(),
@@ -34,7 +34,7 @@ namespace MouseSwitch
 			Win = 8
 		}
 
-		private int keyid = 10;
+		public int keyid = 10;
 
 		private Dictionary<int, HotKeyCallBackHanlder> keymap = new Dictionary<int, HotKeyCallBackHanlder>();
 

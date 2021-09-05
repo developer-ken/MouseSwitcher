@@ -29,32 +29,6 @@ namespace MouseSwitch
             NextKeyBox.Text = HotKeys.GetKeyName(parent.next);
         }
 
-        private void ModiKeyBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.Control:
-                case Keys.LControlKey:
-                case Keys.RControlKey:
-                    parent.modifier = HotKeys.HotkeyModifiers.Control;
-                    break;
-                case Keys.Alt:
-                    parent.modifier = HotKeys.HotkeyModifiers.Alt;
-                    break;
-                case Keys.Shift:
-                case Keys.LShiftKey:
-                case Keys.RShiftKey:
-                    parent.modifier = HotKeys.HotkeyModifiers.Shift;
-                    break;
-                case Keys.LWin:
-                case Keys.RWin:
-                    parent.modifier = HotKeys.HotkeyModifiers.Win;
-                    break;
-            }
-            ModiKeyBox.Text = HotKeys.GetKeyName(parent.modifier);
-            parent.SaveConfig();
-        }
-
         private void PrevKeyBox_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -96,6 +70,26 @@ namespace MouseSwitch
                     break;
             }
             NextKeyBox.Text = HotKeys.GetKeyName(parent.next);
+            parent.SaveConfig();
+        }
+
+        private void ModiKeyBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (ModiKeyBox.Text)
+            {
+                case "Ctrl":
+                    parent.modifier = HotKeys.HotkeyModifiers.Control;
+                    break;
+                case "Alt":
+                    parent.modifier = HotKeys.HotkeyModifiers.Alt;
+                    break;
+                case "Shift":
+                    parent.modifier = HotKeys.HotkeyModifiers.Shift;
+                    break;
+                case "Win":
+                    parent.modifier = HotKeys.HotkeyModifiers.Win;
+                    break;
+            }
             parent.SaveConfig();
         }
     }
