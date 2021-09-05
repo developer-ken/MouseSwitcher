@@ -37,6 +37,7 @@ namespace MouseSwitch
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.ModiKeyBox = new System.Windows.Forms.ComboBox();
+            this.shownotify = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -87,7 +88,7 @@ namespace MouseSwitch
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 91);
+            this.label4.Location = new System.Drawing.Point(12, 84);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(245, 24);
             this.label4.TabIndex = 6;
@@ -109,11 +110,23 @@ namespace MouseSwitch
             this.ModiKeyBox.TabIndex = 7;
             this.ModiKeyBox.SelectedIndexChanged += new System.EventHandler(this.ModiKeyBox_SelectedIndexChanged);
             // 
+            // shownotify
+            // 
+            this.shownotify.AutoSize = true;
+            this.shownotify.Location = new System.Drawing.Point(14, 117);
+            this.shownotify.Name = "shownotify";
+            this.shownotify.Size = new System.Drawing.Size(96, 16);
+            this.shownotify.TabIndex = 8;
+            this.shownotify.Text = "允许弹出通知";
+            this.shownotify.UseVisualStyleBackColor = true;
+            this.shownotify.CheckedChanged += new System.EventHandler(this.shownotify_CheckedChanged);
+            // 
             // Config
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(274, 119);
+            this.ClientSize = new System.Drawing.Size(274, 137);
+            this.Controls.Add(this.shownotify);
             this.Controls.Add(this.ModiKeyBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -142,5 +155,6 @@ namespace MouseSwitch
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox ModiKeyBox;
+        private System.Windows.Forms.CheckBox shownotify;
     }
 }

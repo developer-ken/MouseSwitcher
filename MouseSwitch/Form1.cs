@@ -32,7 +32,7 @@ namespace MouseSwitch
         private ToolStripMenuItem 设置SToolStripMenuItem;
         private ToolStripMenuItem 关于AToolStripMenuItem;
         private ToolStripMenuItem 退出QToolStripMenuItem;
-        bool shownotifi = false;
+        public bool shownotifi = false;
 
         public Form1()
         {
@@ -46,6 +46,7 @@ namespace MouseSwitch
                 {
                     if (shownotifi)
                         notifyIcon1.ShowBalloonTip(2000, "屏幕切换程序", "欢迎使用屏幕切换程序！", ToolTipIcon.None);
+                    SaveConfig();
                 }
                 else
                 {
@@ -257,6 +258,11 @@ namespace MouseSwitch
                 contextMenuStrip1.Show();
         }
 
+        private void 关于AToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new AboutPage().ShowDialog();
+        }
+
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -319,25 +325,26 @@ namespace MouseSwitch
             this.关于AToolStripMenuItem,
             this.退出QToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(119, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
             // 
             // 设置SToolStripMenuItem
             // 
             this.设置SToolStripMenuItem.Name = "设置SToolStripMenuItem";
-            this.设置SToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.设置SToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.设置SToolStripMenuItem.Text = "设置(&S)";
             this.设置SToolStripMenuItem.Click += new System.EventHandler(this.设置SToolStripMenuItem_Click);
             // 
             // 关于AToolStripMenuItem
             // 
             this.关于AToolStripMenuItem.Name = "关于AToolStripMenuItem";
-            this.关于AToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.关于AToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.关于AToolStripMenuItem.Text = "关于(&A)";
+            this.关于AToolStripMenuItem.Click += new System.EventHandler(this.关于AToolStripMenuItem_Click);
             // 
             // 退出QToolStripMenuItem
             // 
             this.退出QToolStripMenuItem.Name = "退出QToolStripMenuItem";
-            this.退出QToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.退出QToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.退出QToolStripMenuItem.Text = "退出(&Q)";
             this.退出QToolStripMenuItem.Click += new System.EventHandler(this.退出QToolStripMenuItem_Click);
             // 

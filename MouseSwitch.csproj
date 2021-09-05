@@ -56,6 +56,23 @@
   <PropertyGroup>
     <RootNamespace>MouseSwitch</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -74,8 +91,12 @@
     <Compile Include="ErrorReport.Designer.cs">
       <DependentUpon>ErrorReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="MouseSwitch.Properties\Resources.cs" />
-    <Compile Include="MouseSwitch.Properties\Settings.cs" />
+    <Compile Include="AboutPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutPage.Designer.cs">
+      <DependentUpon>AboutPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="MouseSwitch\Config.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +109,11 @@
     <Compile Include="MouseSwitch\HotKeys.cs" />
     <Compile Include="MouseSwitch\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -97,15 +123,23 @@
     <EmbeddedResource Include="ErrorReport.resx">
       <DependentUpon>ErrorReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AboutPage.resx">
+      <DependentUpon>AboutPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MouseSwitch\Config.resx">
       <DependentUpon>Config.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MouseSwitch\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ao7n3-cyzyn.ico" />
+    <None Include="Resources\About.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

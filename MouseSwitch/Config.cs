@@ -27,6 +27,7 @@ namespace MouseSwitch
             ModiKeyBox.Text = HotKeys.GetKeyName(parent.modifier);
             PrevKeyBox.Text = HotKeys.GetKeyName(parent.previous);
             NextKeyBox.Text = HotKeys.GetKeyName(parent.next);
+            shownotify.Checked = parent.shownotifi;
         }
 
         private void PrevKeyBox_KeyDown(object sender, KeyEventArgs e)
@@ -90,6 +91,12 @@ namespace MouseSwitch
                     parent.modifier = HotKeys.HotkeyModifiers.Win;
                     break;
             }
+            parent.SaveConfig();
+        }
+
+        private void shownotify_CheckedChanged(object sender, EventArgs e)
+        {
+            parent.shownotifi = shownotify.Checked;
             parent.SaveConfig();
         }
     }
