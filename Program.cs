@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace MouseSwitch
+namespace MouseSwitcher
 {
 	internal static class Program
 	{

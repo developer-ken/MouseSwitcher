@@ -1,5 +1,5 @@
 ﻿
-namespace MouseSwitch
+namespace MouseSwitcher
 {
     partial class ErrorReport
     {

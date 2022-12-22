@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MouseSwitch.Properties {
+namespace MouseSwitcher.Properties {
     using System;
     
     

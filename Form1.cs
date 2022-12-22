@@ -6,9 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using static MouseSwitch.HotKeys;
+using static MouseSwitcher.HotKeys;
 
-namespace MouseSwitch
+namespace MouseSwitcher
 {
     public class Form1 : Form
     {
@@ -33,6 +33,9 @@ namespace MouseSwitch
         private ToolStripMenuItem 关于AToolStripMenuItem;
         private ToolStripMenuItem 退出QToolStripMenuItem;
         public bool shownotifi = false;
+        private Timer clipper;
+        public bool doclipcursor = false;
+        public bool enhancedclip = false;
 
         public Form1()
         {
@@ -105,6 +108,7 @@ namespace MouseSwitch
                 next = Keys.Right;
                 modifier = HotkeyModifiers.Alt;
                 shownotifi = true;
+                doclipcursor = false;
                 return true;
             }
             else
@@ -115,6 +119,12 @@ namespace MouseSwitch
                 next = (Keys)jb.Value<int>("next_screen");
                 modifier = (HotkeyModifiers)jb.Value<int>("modifier");
                 shownotifi = jb.Value<bool>("notify_when_boot");
+                if (jb["clip_cursor"] != null)
+                {
+                    var clip_cursor_str = jb.Value<string>("clip_cursor").ToLower();
+                    doclipcursor = clip_cursor_str.Equals("true") || clip_cursor_str.Equals("enhanced");
+                    enhancedclip = clip_cursor_str.Equals("enhanced");
+                }
                 return false;
             }
         }
@@ -129,12 +139,19 @@ namespace MouseSwitch
                 jb.Add("next_screen", (int)next);
                 jb.Add("modifier", (int)modifier);
                 jb.Add("notify_when_boot", shownotifi);
+                jb.Add("clip_cursor", doclipcursor ? (enhancedclip ? "enhanced" : "true") : "false");
                 File.WriteAllText("config.json", jb.ToString());
             }
         }
 
         [DllImport("user32")]
         private static extern int SetCursorPos(int x, int y);
+
+        [DllImport("user32")]
+        private static extern bool ClipCursor(Rectangle lpRect);
+
+        [DllImport("user32")]
+        private static extern bool ClipCursor();
 
         public void MouseToPoint(Point p)
         {
@@ -153,22 +170,16 @@ namespace MouseSwitch
 
         private int MouseGoto(int ScreenID = 1)
         {
-            int num = 0;
             Screen[] allScreens = Screen.AllScreens;
-            foreach (Screen screen in allScreens)
-            {
-                num++;
-                if (num == ScreenID)
-                {
-                    SetMouseAtCenterScreen(screen);
-                    number.Text = num.ToString();
-                    base.Left = screen.WorkingArea.X;
-                    base.Top = screen.WorkingArea.Y;
-                    base.Opacity = 0.75;
-                    autohide.Start();
-                    break;
-                }
-            }
+            Screen screen = allScreens[ScreenID - 1];
+            if (doclipcursor) ClipCursor();
+            SetMouseAtCenterScreen(screen);
+            number.Text = (ScreenID).ToString();
+            base.Left = screen.WorkingArea.X;
+            base.Top = screen.WorkingArea.Y;
+            base.Opacity = 0.75;
+            if (doclipcursor) ClipCursor(screen.Bounds);
+            autohide.Start();
             return allScreens.Count();
         }
 
@@ -263,6 +274,21 @@ namespace MouseSwitch
             new AboutPage().ShowDialog();
         }
 
+        private void clipper_Tick(object sender, EventArgs e)
+        {
+            if (enhancedclip)
+            {
+                Screen[] allScreens = Screen.AllScreens;
+                Screen screen = allScreens[NowAt - 1];
+                ClipCursor(screen.Bounds);
+            }
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -276,6 +302,7 @@ namespace MouseSwitch
             this.设置SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出QToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clipper = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -326,6 +353,7 @@ namespace MouseSwitch
             this.退出QToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // 设置SToolStripMenuItem
             // 
@@ -347,6 +375,12 @@ namespace MouseSwitch
             this.退出QToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.退出QToolStripMenuItem.Text = "退出(&Q)";
             this.退出QToolStripMenuItem.Click += new System.EventHandler(this.退出QToolStripMenuItem_Click);
+            // 
+            // clipper
+            // 
+            this.clipper.Enabled = true;
+            this.clipper.Interval = 500;
+            this.clipper.Tick += new System.EventHandler(this.clipper_Tick);
             // 
             // Form1
             // 

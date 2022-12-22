@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MouseSwitch
+namespace MouseSwitcher
 {
     public partial class ErrorReport : Form
     {

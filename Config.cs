@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MouseSwitch
+namespace MouseSwitcher
 {
     public partial class Config : Form
     {
@@ -16,7 +16,7 @@ namespace MouseSwitch
         Form1 parent;
         public Config(Form1 f)
         {
-            if (me?.Visible==true) me.Close();
+            if (me?.Visible == true) me.Close();
             me = this;
             parent = f;
             InitializeComponent();
@@ -28,6 +28,10 @@ namespace MouseSwitch
             PrevKeyBox.Text = HotKeys.GetKeyName(parent.previous);
             NextKeyBox.Text = HotKeys.GetKeyName(parent.next);
             shownotify.Checked = parent.shownotifi;
+            checkBox1.CheckState = parent.doclipcursor ?
+                (parent.enhancedclip ? CheckState.Checked : CheckState.Indeterminate)
+                :
+                CheckState.Unchecked;
         }
 
         private void PrevKeyBox_KeyDown(object sender, KeyEventArgs e)
@@ -97,6 +101,13 @@ namespace MouseSwitch
         private void shownotify_CheckedChanged(object sender, EventArgs e)
         {
             parent.shownotifi = shownotify.Checked;
+            parent.SaveConfig();
+        }
+
+        private void checkBox1_CheckStateChanged(object sender, EventArgs e)
+        {
+            parent.enhancedclip = checkBox1.CheckState == CheckState.Checked;
+            parent.doclipcursor = parent.enhancedclip || checkBox1.CheckState == CheckState.Indeterminate;
             parent.SaveConfig();
         }
     }

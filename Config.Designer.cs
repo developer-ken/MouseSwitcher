@@ -1,5 +1,5 @@
 ﻿
-namespace MouseSwitch
+namespace MouseSwitcher
 {
     partial class Config
     {
@@ -38,6 +38,7 @@ namespace MouseSwitch
             this.label4 = new System.Windows.Forms.Label();
             this.ModiKeyBox = new System.Windows.Forms.ComboBox();
             this.shownotify = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -51,6 +52,8 @@ namespace MouseSwitch
             // 
             // PrevKeyBox
             // 
+            this.PrevKeyBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PrevKeyBox.Location = new System.Drawing.Point(59, 33);
             this.PrevKeyBox.Name = "PrevKeyBox";
             this.PrevKeyBox.ReadOnly = true;
@@ -60,6 +63,8 @@ namespace MouseSwitch
             // 
             // NextKeyBox
             // 
+            this.NextKeyBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.NextKeyBox.Location = new System.Drawing.Point(59, 60);
             this.NextKeyBox.Name = "NextKeyBox";
             this.NextKeyBox.ReadOnly = true;
@@ -87,6 +92,8 @@ namespace MouseSwitch
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(12, 84);
             this.label4.Name = "label4";
@@ -96,6 +103,8 @@ namespace MouseSwitch
             // 
             // ModiKeyBox
             // 
+            this.ModiKeyBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ModiKeyBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.ModiKeyBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.ModiKeyBox.FormattingEnabled = true;
@@ -112,6 +121,7 @@ namespace MouseSwitch
             // 
             // shownotify
             // 
+            this.shownotify.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.shownotify.AutoSize = true;
             this.shownotify.Location = new System.Drawing.Point(14, 117);
             this.shownotify.Name = "shownotify";
@@ -121,11 +131,25 @@ namespace MouseSwitch
             this.shownotify.UseVisualStyleBackColor = true;
             this.shownotify.CheckedChanged += new System.EventHandler(this.shownotify_CheckedChanged);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(173, 117);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(96, 16);
+            this.checkBox1.TabIndex = 9;
+            this.checkBox1.Text = "阻止跨屏拖动";
+            this.checkBox1.ThreeState = true;
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckStateChanged += new System.EventHandler(this.checkBox1_CheckStateChanged);
+            // 
             // Config
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(274, 137);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.shownotify);
             this.Controls.Add(this.ModiKeyBox);
             this.Controls.Add(this.label4);
@@ -156,5 +180,6 @@ namespace MouseSwitch
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox ModiKeyBox;
         private System.Windows.Forms.CheckBox shownotify;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
