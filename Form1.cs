@@ -54,10 +54,16 @@ namespace MouseSwitcher
                 else
                 {
                     if (shownotifi)
+                    {
+                        if (previous == Keys.Escape && next == Keys.Escape)
+                            notifyIcon1.BalloonTipClicked += notifyIcon1_DoubleClick;
                         notifyIcon1.ShowBalloonTip(2000, "屏幕切换程序", "检测到" + count + "个显示器\n" +
-                        "上一个：" + GetKeyName(modifier) + "+" + GetKeyName(previous) + "\n" +
-                        "下一个：" + GetKeyName(modifier) + "+" + GetKeyName(next) + "\n"
+                        (previous == Keys.Escape ? "" : "上一个：" + GetKeyName(modifier) + "+" + GetKeyName(previous) + "\n") +
+                        (next == Keys.Escape ? "" : "下一个：" + GetKeyName(modifier) + "+" + GetKeyName(next) + "\n") +
+                        (previous == Keys.Escape && next == Keys.Escape ? "点击这里设置快捷键" : "")
                         , ToolTipIcon.None);
+                    }
+
                 }
             }
         }
@@ -66,8 +72,14 @@ namespace MouseSwitcher
         {
             try
             {
-                h.Regist(base.Handle, modifier, previous, GoMinus);
-                h.Regist(base.Handle, modifier, next, GoPlus);
+                if (!previous.Equals(Keys.Escape))
+                {
+                    h.Regist(base.Handle, modifier, previous, GoMinus);
+                }
+                if (!next.Equals(Keys.Escape))
+                {
+                    h.Regist(base.Handle, modifier, next, GoPlus);
+                }
                 return true;
             }
             catch (Exception err)
@@ -301,6 +313,24 @@ namespace MouseSwitcher
             base.SetVisibleCore(true);
         }
 
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            if (configwindow != null) configwindow.Show();
+            else
+            {
+                UnRegKeys();
+                configwindow = new Config(this);
+                configwindow.ShowDialog();
+                RegKeys();
+                configwindow = null;
+            }
+        }
+
+        private void notifyIcon1_BalloonTipClosed(object sender, EventArgs e)
+        {
+            notifyIcon1.BalloonTipClicked -= notifyIcon1_DoubleClick;
+        }
+
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -321,9 +351,10 @@ namespace MouseSwitcher
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(16, 11);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 12);
+            this.label1.Size = new System.Drawing.Size(0, 15);
             this.label1.TabIndex = 0;
             // 
             // number
@@ -332,9 +363,10 @@ namespace MouseSwitcher
             this.number.BackColor = System.Drawing.Color.Black;
             this.number.Font = new System.Drawing.Font("宋体", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.number.ForeColor = System.Drawing.Color.White;
-            this.number.Location = new System.Drawing.Point(49, 41);
+            this.number.Location = new System.Drawing.Point(65, 51);
+            this.number.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.number.Name = "number";
-            this.number.Size = new System.Drawing.Size(91, 97);
+            this.number.Size = new System.Drawing.Size(133, 144);
             this.number.TabIndex = 1;
             this.number.Text = "1";
             // 
@@ -355,36 +387,39 @@ namespace MouseSwitcher
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "屏幕切换程序";
             this.notifyIcon1.Visible = true;
+            this.notifyIcon1.BalloonTipClosed += new System.EventHandler(this.notifyIcon1_BalloonTipClosed);
+            this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
             this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseClick);
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.设置SToolStripMenuItem,
             this.关于AToolStripMenuItem,
             this.退出QToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(144, 94);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // 设置SToolStripMenuItem
             // 
             this.设置SToolStripMenuItem.Name = "设置SToolStripMenuItem";
-            this.设置SToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.设置SToolStripMenuItem.Size = new System.Drawing.Size(143, 30);
             this.设置SToolStripMenuItem.Text = "设置(&S)";
             this.设置SToolStripMenuItem.Click += new System.EventHandler(this.设置SToolStripMenuItem_Click);
             // 
             // 关于AToolStripMenuItem
             // 
             this.关于AToolStripMenuItem.Name = "关于AToolStripMenuItem";
-            this.关于AToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.关于AToolStripMenuItem.Size = new System.Drawing.Size(143, 30);
             this.关于AToolStripMenuItem.Text = "关于(&A)";
             this.关于AToolStripMenuItem.Click += new System.EventHandler(this.关于AToolStripMenuItem_Click);
             // 
             // 退出QToolStripMenuItem
             // 
             this.退出QToolStripMenuItem.Name = "退出QToolStripMenuItem";
-            this.退出QToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.退出QToolStripMenuItem.Size = new System.Drawing.Size(143, 30);
             this.退出QToolStripMenuItem.Text = "退出(&Q)";
             this.退出QToolStripMenuItem.Click += new System.EventHandler(this.退出QToolStripMenuItem_Click);
             // 
@@ -396,14 +431,15 @@ namespace MouseSwitcher
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(201, 189);
+            this.ClientSize = new System.Drawing.Size(268, 236);
             this.Controls.Add(this.number);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Opacity = 0.75D;
             this.ShowInTaskbar = false;

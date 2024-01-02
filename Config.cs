@@ -25,8 +25,8 @@ namespace MouseSwitcher
         private void Config_Load(object sender, EventArgs e)
         {
             ModiKeyBox.Text = HotKeys.GetKeyName(parent.modifier);
-            PrevKeyBox.Text = HotKeys.GetKeyName(parent.previous);
-            NextKeyBox.Text = HotKeys.GetKeyName(parent.next);
+            PrevKeyBox.Text = parent.previous == Keys.Escape ? "禁用" : HotKeys.GetKeyName(parent.previous);
+            NextKeyBox.Text = parent.next == Keys.Escape ? "禁用" : HotKeys.GetKeyName(parent.next);
             shownotify.Checked = parent.shownotifi;
             checkBox1.CheckState = parent.doclipcursor ?
                 (parent.enhancedclip ? CheckState.Checked : CheckState.Indeterminate)
@@ -48,11 +48,15 @@ namespace MouseSwitcher
                 case Keys.LWin:
                 case Keys.RWin:
                     break;
+                case Keys.Escape:
+                    parent.previous = e.KeyCode;
+                    PrevKeyBox.Text = "禁用";
+                    break;
                 default:
                     parent.previous = e.KeyCode;
+                    PrevKeyBox.Text = HotKeys.GetKeyName(parent.previous);
                     break;
             }
-            PrevKeyBox.Text = HotKeys.GetKeyName(parent.previous);
             parent.SaveConfig();
         }
 
@@ -70,11 +74,15 @@ namespace MouseSwitcher
                 case Keys.LWin:
                 case Keys.RWin:
                     break;
+                case Keys.Escape:
+                    parent.next = e.KeyCode;
+                    NextKeyBox.Text = "禁用";
+                    break;
                 default:
                     parent.next = e.KeyCode;
+                    NextKeyBox.Text = HotKeys.GetKeyName(parent.previous);
                     break;
             }
-            NextKeyBox.Text = HotKeys.GetKeyName(parent.next);
             parent.SaveConfig();
         }
 
