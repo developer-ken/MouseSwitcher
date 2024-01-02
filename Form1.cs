@@ -260,6 +260,7 @@ namespace MouseSwitcher
 
         private void CurrentPositionCheck_Tick(object sender, EventArgs e)
         {
+            if(doclipcursor) return;
             int num = 0;
             Screen[] allScreens = Screen.AllScreens;
             foreach (Screen obj in allScreens)
@@ -319,7 +320,33 @@ namespace MouseSwitcher
             {
                 Screen[] allScreens = Screen.AllScreens;
                 Screen screen = allScreens[NowAt - 1];
-                ClipCursor(screen.Bounds);
+                Point mpnew = Control.MousePosition;
+                bool changed = false;
+                //ClipCursor(screen.Bounds);
+                if (mpnew.X > screen.Bounds.Right)
+                {
+                    mpnew.X = screen.Bounds.Right;
+                    changed = true;
+                }
+                if (mpnew.X < screen.Bounds.Left)
+                {
+                    mpnew.X = screen.Bounds.Left;
+                    changed = true;
+                }
+                if (mpnew.Y < screen.Bounds.Top)
+                {
+                    mpnew.Y = screen.Bounds.Top;
+                    changed = true;
+                }
+                if (mpnew.Y > screen.Bounds.Bottom)
+                {
+                    mpnew.Y = screen.Bounds.Bottom;
+                    changed = true;
+                }
+                if (changed)
+                {
+                    MouseToPoint(mpnew);
+                }
             }
         }
 
@@ -405,7 +432,7 @@ namespace MouseSwitcher
             // CurrentPositionCheck
             // 
             this.CurrentPositionCheck.Enabled = true;
-            this.CurrentPositionCheck.Interval = 500;
+            this.CurrentPositionCheck.Interval = 10;
             this.CurrentPositionCheck.Tick += new System.EventHandler(this.CurrentPositionCheck_Tick);
             // 
             // notifyIcon1
@@ -453,7 +480,7 @@ namespace MouseSwitcher
             // clipper
             // 
             this.clipper.Enabled = true;
-            this.clipper.Interval = 500;
+            this.clipper.Interval = 10;
             this.clipper.Tick += new System.EventHandler(this.clipper_Tick);
             // 
             // Form1
@@ -466,7 +493,7 @@ namespace MouseSwitcher
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Opacity = 0.75D;
             this.ShowInTaskbar = false;
