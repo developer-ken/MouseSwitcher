@@ -41,8 +41,8 @@ namespace MouseSwitcher
         public Form1()
         {
             InitializeComponent();
+            WHide();
             var isfirst = LoadConfig();
-
             if (RegKeys())
             {
                 var count = MouseGoto();
@@ -215,7 +215,7 @@ namespace MouseSwitcher
                         base.Top = screen.WorkingArea.Y + screen.WorkingArea.Height - base.Height;
                         break;
                 }
-                Show();
+                WShow();
             }
             if (doclipcursor) ClipCursor(screen.Bounds);
             autohide.Start();
@@ -250,12 +250,12 @@ namespace MouseSwitcher
 
         private void Form1_MouseEnter(object sender, EventArgs e)
         {
-            Hide();
+            WHide();
         }
 
         private void autohide_Tick(object sender, EventArgs e)
         {
-            Hide();
+            WHide();
         }
 
         private void CurrentPositionCheck_Tick(object sender, EventArgs e)
@@ -328,13 +328,13 @@ namespace MouseSwitcher
 
         }
 
-        private void Hide()
+        private void WHide()
         {
             base.Opacity = 0;
             base.SetVisibleCore(false);
         }
 
-        private void Show()
+        private void WShow()
         {
             base.Opacity = 0.75;
             base.SetVisibleCore(true);
