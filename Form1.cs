@@ -177,7 +177,7 @@ namespace MouseSwitcher
             number.Text = (ScreenID).ToString();
             base.Left = screen.WorkingArea.X;
             base.Top = screen.WorkingArea.Y;
-            base.Opacity = 0.75;
+            Show();
             if (doclipcursor) ClipCursor(screen.Bounds);
             autohide.Start();
             return allScreens.Count();
@@ -211,12 +211,12 @@ namespace MouseSwitcher
 
         private void Form1_MouseEnter(object sender, EventArgs e)
         {
-            base.Opacity = 0.0;
+            Hide();
         }
 
         private void autohide_Tick(object sender, EventArgs e)
         {
-            base.Opacity = 0.0;
+            Hide();
         }
 
         private void CurrentPositionCheck_Tick(object sender, EventArgs e)
@@ -287,6 +287,18 @@ namespace MouseSwitcher
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
 
+        }
+
+        private void Hide()
+        {
+            base.Opacity = 0;
+            base.SetVisibleCore(false);
+        }
+
+        private void Show()
+        {
+            base.Opacity = 0.75;
+            base.SetVisibleCore(true);
         }
 
         private void InitializeComponent()
