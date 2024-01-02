@@ -28,6 +28,7 @@ namespace MouseSwitcher
 
         public HotkeyModifiers modifier;
         public Keys previous, next;
+        public WindowDockingConner windowdock;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem 设置SToolStripMenuItem;
         private ToolStripMenuItem 关于AToolStripMenuItem;
@@ -121,6 +122,7 @@ namespace MouseSwitcher
                 modifier = HotkeyModifiers.Alt;
                 shownotifi = true;
                 doclipcursor = false;
+                windowdock = 0;
                 return true;
             }
             else
@@ -137,6 +139,10 @@ namespace MouseSwitcher
                     doclipcursor = clip_cursor_str.Equals("true") || clip_cursor_str.Equals("enhanced");
                     enhancedclip = clip_cursor_str.Equals("enhanced");
                 }
+                if (jb["windowdock"] != null)
+                {
+                    windowdock = (WindowDockingConner)jb.Value<int>("windowdock");
+                }
                 return false;
             }
         }
@@ -152,6 +158,7 @@ namespace MouseSwitcher
                 jb.Add("modifier", (int)modifier);
                 jb.Add("notify_when_boot", shownotifi);
                 jb.Add("clip_cursor", doclipcursor ? (enhancedclip ? "enhanced" : "true") : "false");
+                jb.Add("windowdock", (int)windowdock);
                 File.WriteAllText("config.json", jb.ToString());
             }
         }
@@ -187,9 +194,29 @@ namespace MouseSwitcher
             if (doclipcursor) ClipCursor();
             SetMouseAtCenterScreen(screen);
             number.Text = (ScreenID).ToString();
-            base.Left = screen.WorkingArea.X;
-            base.Top = screen.WorkingArea.Y;
-            Show();
+            if (windowdock != WindowDockingConner.Disabled)
+            {
+                switch (windowdock)
+                {
+                    case WindowDockingConner.LeftUp:
+                        base.Left = screen.WorkingArea.X;
+                        base.Top = screen.WorkingArea.Y;
+                        break;
+                    case WindowDockingConner.RightUp:
+                        base.Left = screen.WorkingArea.X + screen.WorkingArea.Width - base.Width;
+                        base.Top = screen.WorkingArea.Y;
+                        break;
+                    case WindowDockingConner.LeftDown:
+                        base.Left = screen.WorkingArea.X;
+                        base.Top = screen.WorkingArea.Y + screen.WorkingArea.Height - base.Height;
+                        break;
+                    case WindowDockingConner.RightDown:
+                        base.Left = screen.WorkingArea.X + screen.WorkingArea.Width - base.Width;
+                        base.Top = screen.WorkingArea.Y + screen.WorkingArea.Height - base.Height;
+                        break;
+                }
+                Show();
+            }
             if (doclipcursor) ClipCursor(screen.Bounds);
             autohide.Start();
             return allScreens.Count();
@@ -451,5 +478,10 @@ namespace MouseSwitcher
             this.PerformLayout();
 
         }
+    }
+
+    public enum WindowDockingConner
+    {
+        LeftUp = 0, RightUp = 1, LeftDown = 2, RightDown = 3, Disabled = 4
     }
 }

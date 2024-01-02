@@ -32,6 +32,7 @@ namespace MouseSwitcher
                 (parent.enhancedclip ? CheckState.Checked : CheckState.Indeterminate)
                 :
                 CheckState.Unchecked;
+            comboBox1.SelectedIndex = (int)parent.windowdock;
         }
 
         private void PrevKeyBox_KeyDown(object sender, KeyEventArgs e)
@@ -116,6 +117,12 @@ namespace MouseSwitcher
         {
             parent.enhancedclip = checkBox1.CheckState == CheckState.Checked;
             parent.doclipcursor = parent.enhancedclip || checkBox1.CheckState == CheckState.Indeterminate;
+            parent.SaveConfig();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            parent.windowdock = (WindowDockingConner)comboBox1.SelectedIndex;
             parent.SaveConfig();
         }
     }
