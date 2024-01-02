@@ -47,7 +47,7 @@
 \insrsid15602821 \hich\af31506\dbch\af31505\loch\f31506  \hich\af31506\dbch\af31505\loch\f31506 HYPERLINK "https://github.com/developer-ken/MouseSwitch"\hich\af31506\dbch\af31505\loch\f31506  }{\rtlch\fcs1 \af31507 \ltrch\fcs0 \insrsid15602821 
 {\*\datafield 
 00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b72000000680074007400700073003a002f002f006700690074006800750062002e0063006f006d002f0064006500760065006c006f007000650072002d006b0065006e002f004d006f00750073006500530077006900
-7400630068000000795881f43b1d7f48af2c825dc485276300000000a5ab0003}}}{\fldrslt {\rtlch\fcs1 \af31507 \ltrch\fcs0 \cs15\ul\cf19\insrsid15602821\charrsid15602821 \hich\af31506\dbch\af31505\loch\f31506 https://github.com/developer-ken/MouseSwitch}}}
+7400630068000000795881f43b1d7f48af2c825dc485276300000000a5ab0003}}}{\fldrslt {\rtlch\fcs1 \af31507 \ltrch\fcs0 \cs15\ul\cf19\insrsid15602821\charrsid15602821 \hich\af31506\dbch\af31505\loch\f31506 https://github.com/developer-ken/MouseSwitcher}}}
 \sectd \ltrsect\linex0\sectdefaultcl\sftnbj {\rtlch\fcs1 \af31507 \ltrch\fcs0 \insrsid15602821 
 \par }{\rtlch\fcs1 \af31507 \ltrch\fcs0 \insrsid6910734 \loch\af31506\hich\af31506\dbch\f31505 \'bf\'aa\'b7\'a2\'d5\'df}{\rtlch\fcs1 \af31507 \ltrch\fcs0 \insrsid6910734 \hich\af31506\dbch\af31505\loch\f31506 :}{\rtlch\fcs1 \af31507 \ltrch\fcs0 
 \insrsid6910734 \hich\af31506\dbch\af31505\loch\f31506  Developer_Ken
