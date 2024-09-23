@@ -125,5 +125,36 @@ namespace MouseSwitcher
             parent.windowdock = (WindowDockingConner)comboBox1.SelectedIndex;
             parent.SaveConfig();
         }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CrosslockKeyBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Control:
+                case Keys.LControlKey:
+                case Keys.RControlKey:
+                case Keys.Alt:
+                case Keys.Shift:
+                case Keys.LShiftKey:
+                case Keys.RShiftKey:
+                case Keys.LWin:
+                case Keys.RWin:
+                    break;
+                case Keys.Escape:
+                    parent.crosslock = e.KeyCode;
+                    NextKeyBox.Text = "禁用";
+                    break;
+                default:
+                    parent.crosslock = e.KeyCode;
+                    CrosslockKeyBox.Text = HotKeys.GetKeyName(parent.crosslock);
+                    break;
+            }
+            parent.SaveConfig();
+        }
     }
 }

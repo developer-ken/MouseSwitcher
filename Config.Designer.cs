@@ -41,15 +41,16 @@ namespace MouseSwitcher
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.CrosslockKeyBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 11);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 15);
+            this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "触发键";
             // 
@@ -57,11 +58,10 @@ namespace MouseSwitcher
             // 
             this.PrevKeyBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PrevKeyBox.Location = new System.Drawing.Point(79, 41);
-            this.PrevKeyBox.Margin = new System.Windows.Forms.Padding(4);
+            this.PrevKeyBox.Location = new System.Drawing.Point(59, 33);
             this.PrevKeyBox.Name = "PrevKeyBox";
             this.PrevKeyBox.ReadOnly = true;
-            this.PrevKeyBox.Size = new System.Drawing.Size(279, 25);
+            this.PrevKeyBox.Size = new System.Drawing.Size(210, 21);
             this.PrevKeyBox.TabIndex = 2;
             this.PrevKeyBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PrevKeyBox_KeyDown);
             // 
@@ -69,31 +69,28 @@ namespace MouseSwitcher
             // 
             this.NextKeyBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.NextKeyBox.Location = new System.Drawing.Point(79, 75);
-            this.NextKeyBox.Margin = new System.Windows.Forms.Padding(4);
+            this.NextKeyBox.Location = new System.Drawing.Point(59, 60);
             this.NextKeyBox.Name = "NextKeyBox";
             this.NextKeyBox.ReadOnly = true;
-            this.NextKeyBox.Size = new System.Drawing.Size(279, 25);
+            this.NextKeyBox.Size = new System.Drawing.Size(210, 21);
             this.NextKeyBox.TabIndex = 3;
             this.NextKeyBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextKeyBox_KeyDown);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 45);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(12, 36);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 15);
+            this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 4;
             this.label2.Text = "上一屏";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 79);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(12, 63);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 15);
+            this.label3.Size = new System.Drawing.Size(41, 12);
             this.label3.TabIndex = 5;
             this.label3.Text = "下一屏";
             // 
@@ -102,10 +99,9 @@ namespace MouseSwitcher
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 105);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(12, 111);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(307, 30);
+            this.label4.Size = new System.Drawing.Size(245, 24);
             this.label4.TabIndex = 6;
             this.label4.Text = "受限于系统，并非所有快捷键都能全局触发，\r\n设置后请自行实验。";
             // 
@@ -121,10 +117,9 @@ namespace MouseSwitcher
             "Shift",
             "Alt",
             "Win"});
-            this.ModiKeyBox.Location = new System.Drawing.Point(79, 8);
-            this.ModiKeyBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ModiKeyBox.Location = new System.Drawing.Point(59, 6);
             this.ModiKeyBox.Name = "ModiKeyBox";
-            this.ModiKeyBox.Size = new System.Drawing.Size(279, 23);
+            this.ModiKeyBox.Size = new System.Drawing.Size(210, 20);
             this.ModiKeyBox.TabIndex = 7;
             this.ModiKeyBox.SelectedIndexChanged += new System.EventHandler(this.ModiKeyBox_SelectedIndexChanged);
             // 
@@ -132,10 +127,9 @@ namespace MouseSwitcher
             // 
             this.shownotify.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.shownotify.AutoSize = true;
-            this.shownotify.Location = new System.Drawing.Point(19, 189);
-            this.shownotify.Margin = new System.Windows.Forms.Padding(4);
+            this.shownotify.Location = new System.Drawing.Point(12, 165);
             this.shownotify.Name = "shownotify";
-            this.shownotify.Size = new System.Drawing.Size(123, 21);
+            this.shownotify.Size = new System.Drawing.Size(96, 16);
             this.shownotify.TabIndex = 8;
             this.shownotify.Text = "允许弹出通知";
             this.shownotify.UseVisualStyleBackColor = true;
@@ -145,10 +139,9 @@ namespace MouseSwitcher
             // 
             this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(236, 189);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox1.Location = new System.Drawing.Point(173, 165);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(123, 21);
+            this.checkBox1.Size = new System.Drawing.Size(96, 16);
             this.checkBox1.TabIndex = 9;
             this.checkBox1.Text = "阻止跨屏拖动";
             this.checkBox1.ThreeState = true;
@@ -168,28 +161,49 @@ namespace MouseSwitcher
             "左下↙",
             "右下↘",
             "禁用×"});
-            this.comboBox1.Location = new System.Drawing.Point(79, 152);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox1.Location = new System.Drawing.Point(59, 138);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(279, 23);
+            this.comboBox1.Size = new System.Drawing.Size(210, 20);
             this.comboBox1.TabIndex = 11;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 155);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(12, 141);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 15);
+            this.label5.Size = new System.Drawing.Size(41, 12);
             this.label5.TabIndex = 10;
             this.label5.Text = "屏幕号";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 90);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 12);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "穿越锁";
+            // 
+            // CrosslockKeyBox
+            // 
+            this.CrosslockKeyBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CrosslockKeyBox.Location = new System.Drawing.Point(59, 87);
+            this.CrosslockKeyBox.Name = "CrosslockKeyBox";
+            this.CrosslockKeyBox.ReadOnly = true;
+            this.CrosslockKeyBox.Size = new System.Drawing.Size(210, 21);
+            this.CrosslockKeyBox.TabIndex = 12;
+            this.CrosslockKeyBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CrosslockKeyBox_KeyDown);
             // 
             // Config
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(365, 215);
+            this.ClientSize = new System.Drawing.Size(274, 184);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.CrosslockKeyBox);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.checkBox1);
@@ -203,7 +217,6 @@ namespace MouseSwitcher
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Config";
@@ -227,5 +240,7 @@ namespace MouseSwitcher
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox CrosslockKeyBox;
     }
 }
